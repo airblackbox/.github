@@ -63,7 +63,7 @@ Then point any OpenAI-compatible client at `localhost:8080`. That's it.
 
 - **Traces** → `localhost:16686` (Jaeger)
 - **Metrics** → `localhost:9091` (Prometheus)
-- **Episodes** → `localhost:8081` (Episode Store API)
+- **Episodes** → `localhost:8100` (Episode Store API)
 
 ---
 
