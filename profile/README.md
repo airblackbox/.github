@@ -1,148 +1,66 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/airblackbox/gateway/main/logo.png" alt="AIR Blackbox" width="100" />
-</p>
+# AIR Blackbox
 
-<h1 align="center">AIR Blackbox</h1>
+**Open-source compliance infrastructure for AI agents — built for the EU AI Act.**
 
-<h3 align="center">Open-source infrastructure for safe deployment of autonomous AI agents.</h3>
+The August 2, 2026 enforcement deadline for high-risk AI systems is approaching. AIR Blackbox provides the audit trails, security controls, and compliance tooling that enterprises need to deploy AI agents legally in the EU.
 
-<p align="center">
-  <em>The flight recorder for AI — record every decision, replay every incident, enforce every policy.</em>
-</p>
+## What We Do
 
-<p align="center">
-  <a href="https://github.com/airblackbox/air-platform"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="License" /></a>
-  <a href="https://github.com/airblackbox/air-platform"><img src="https://img.shields.io/badge/status-alpha-orange" alt="Status" /></a>
-  <a href="https://github.com/airblackbox/air-platform"><img src="https://img.shields.io/badge/OTel-native-4B0082" alt="OTel" /></a>
-</p>
+Every AI agent decision gets recorded, every tool call gets gated, every prompt gets scanned — with tamper-evident HMAC-SHA256 audit chains that regulators can verify.
 
----
-
-## The Problem
-
-AI agents are making real decisions — calling APIs, executing code, moving money, accessing databases. But there is no standard infrastructure for:
-
-- **Auditing** what an agent actually did
-- **Enforcing** policies before an action executes
-- **Shutting down** a runaway agent in real time
-- **Replaying** an incident after something goes wrong
-- **Redacting** secrets before they hit your logging stack
-
-Every team re-invents this differently. Secrets leak. Budgets burn. Regulators ask questions nobody can answer.
-
-**AIR Blackbox is the missing layer between your AI agents and your infrastructure.**
-
----
-
-## How It Works
-
-```
-Your Agent ──→ Gateway ──→ Policy Engine ──→ LLM Provider
-                 │               │
-                 ▼               ▼
-           OTel Collector   Kill Switches
-                 │          Trust Scoring
-                 ▼          Risk Tiers
-           Episode Store
-           Jaeger · Prometheus
-```
-
-One line change — swap your `base_url` — and every agent call flows through AIR Blackbox automatically. No SDK changes, no code refactoring.
-
----
-
-## 5-Minute Quickstart
+## Quick Start
 
 ```bash
-git clone https://github.com/airblackbox/air-platform.git && cd air-platform
-cp .env.example .env          # add your OPENAI_API_KEY
-make up                       # 6 services running in ~8 seconds
+pip install air-compliance        # Scan your project for EU AI Act gaps
+air-compliance scan ./my-project  # Get a compliance report instantly
 ```
 
-Then point any OpenAI-compatible client at `localhost:8080`. That's it.
+## Framework Trust Layers
 
-- **Traces** → `localhost:16686` (Jaeger)
-- **Metrics** → `localhost:9091` (Prometheus)
-- **Episodes** → `localhost:8100` (Episode Store API)
+Drop-in compliance for every major AI agent framework:
 
----
+| Package | Framework | Install |
+|---------|-----------|---------|
+| [air-langchain-trust](https://github.com/airblackbox/air-langchain-trust) | LangChain / LangGraph | `pip install air-langchain-trust` |
+| [air-crewai-trust](https://github.com/airblackbox/trust-crewai) | CrewAI | `pip install air-crewai-trust` |
+| [air-openai-agents-trust](https://github.com/airblackbox/trust-openai-agents) | OpenAI Agents SDK | `pip install air-openai-agents-trust` |
+| [air-autogen-trust](https://github.com/airblackbox/trust-autogen) | AutoGen / AG2 | `pip install air-autogen-trust` |
+| [air-rag-trust](https://github.com/airblackbox/air-rag-trust) | RAG Knowledge Bases | `pip install air-rag-trust` |
+| [openclaw-air-trust](https://github.com/airblackbox/trust-openclaw) | TypeScript / Node.js | `npm install openclaw-air-trust` |
 
-## Interactive Demos
+## Compliance & Scanning
 
-Explore each component without installing anything:
+| Package | Purpose | Install |
+|---------|---------|---------|
+| [air-compliance](https://github.com/airblackbox/air-compliance-checker) | EU AI Act compliance scanner | `pip install air-compliance` |
+| [Gateway](https://github.com/airblackbox/gateway) | Flight recorder reverse proxy | `docker pull ghcr.io/airblackbox/gateway:main` |
+| [air-platform](https://github.com/airblackbox/air-platform) | Full stack (one command) | `docker compose up` |
 
-| Component | Try It |
-|---|---|
-| **Platform Orchestration** | [Launch Demo →](https://htmlpreview.github.io/?https://github.com/airblackbox/air-platform/blob/main/demo.html) |
-| **Policy Engine** | [Launch Demo →](https://htmlpreview.github.io/?https://github.com/airblackbox/agent-policy-engine/blob/main/demo.html) |
-| **Episode Store** | [Launch Demo →](https://htmlpreview.github.io/?https://github.com/airblackbox/agent-episode-store/blob/main/demo.html) |
-| **Gateway** | [Launch Demo →](https://htmlpreview.github.io/?https://github.com/airblackbox/gateway/blob/main/demo.html) |
-| **OTel Collector** | [Launch Demo →](https://htmlpreview.github.io/?https://github.com/airblackbox/otel-collector-genai/blob/main/demo.html) |
+## EU AI Act Coverage
 
----
+Each trust layer provides controls mapped to specific articles:
 
-## Repositories
+- **Article 9** — Risk Management: ConsentGate classifies tool calls by risk level
+- **Article 10** — Data Governance: DataVault tokenizes PII, ProvenanceTracker hashes KB documents
+- **Article 11** — Technical Documentation: Structured audit logging with call graphs
+- **Article 12** — Record-Keeping: HMAC-SHA256 tamper-evident chains
+- **Article 14** — Human Oversight: Exception-based blocking, audit trail review
+- **Article 15** — Robustness: InjectionDetector, WriteGate, DriftDetector
 
-### Core Runtime
+## Full Ecosystem (25 repos)
 
-| Repo | What It Does |
-|---|---|
-| [**air-platform**](https://github.com/airblackbox/air-platform) | Full stack in one command — Docker Compose orchestration |
-| [**gateway**](https://github.com/airblackbox/gateway) | OpenAI-compatible reverse proxy — traces every LLM call |
-| [**agent-episode-store**](https://github.com/airblackbox/agent-episode-store) | Groups traces into replayable task-level episodes |
-| [**agent-policy-engine**](https://github.com/airblackbox/agent-policy-engine) | Risk tiers, kill switches, trust scoring |
+**Core Runtime:** Gateway, Agent-Episode-Store, Agent-Policy-Engine, Air-Platform
 
-### Safety & Governance
+**Instrumentation:** Python-SDK, air-langchain-trust, air-crewai-trust, air-autogen-trust, air-openai-agents-trust, openclaw-air-trust, air-rag-trust
 
-| Repo | What It Does |
-|---|---|
-| [**otel-collector-genai**](https://github.com/airblackbox/otel-collector-genai) | PII redaction, cost metrics, loop detection |
-| [**otel-prompt-vault**](https://github.com/airblackbox/otel-prompt-vault) | Encrypted prompt storage with pre-signed URL retrieval |
-| [**otel-semantic-normalizer**](https://github.com/airblackbox/otel-semantic-normalizer) | Normalizes gen_ai.* attributes to a standard schema |
-| [**agent-tool-sandbox**](https://github.com/airblackbox/agent-tool-sandbox) | Sandboxed execution for agent tool calls |
-| [**runtime-aibom-emitter**](https://github.com/airblackbox/runtime-aibom-emitter) | AI Bill of Materials generation at runtime |
+**Safety & Governance:** OTel-Collector-GenAI, OTel-Prompt-Vault, OTel-Semantic-Normalizer, Agent-Tool-Sandbox, Runtime-AIBOM-Emitter, AIBOM-Policy-Engine
 
-### Instrumentation
+**Evaluation & Testing:** Eval-Harness, Trace-Regression-Harness, Agent-VCR
 
-| Repo | What It Does |
-|---|---|
-| [**python-sdk**](https://github.com/airblackbox/python-sdk) | Python SDK — wraps OpenAI, Anthropic, and other LLM clients |
-| [**trust-crewai**](https://github.com/airblackbox/trust-crewai) | Trust plugin for CrewAI |
-| [**trust-langchain**](https://github.com/airblackbox/trust-langchain) | Trust plugin for LangChain / LangGraph |
-| [**trust-autogen**](https://github.com/airblackbox/trust-autogen) | Trust plugin for Microsoft AutoGen |
-| [**trust-openai-agents**](https://github.com/airblackbox/trust-openai-agents) | Trust plugin for OpenAI Agents SDK |
+**Security:** MCP-Security-Scanner, MCP-Policy-Gateway
 
-### Evaluation & Security
-
-| Repo | What It Does |
-|---|---|
-| [**eval-harness**](https://github.com/airblackbox/eval-harness) | Replay and score episodes against policies |
-| [**trace-regression-harness**](https://github.com/airblackbox/trace-regression-harness) | Detect behavioral regressions across agent versions |
-| [**agent-vcr**](https://github.com/airblackbox/agent-vcr) | Record and replay agent interactions for testing |
-| [**mcp-security-scanner**](https://github.com/airblackbox/mcp-security-scanner) | Scan MCP server configs for vulnerabilities |
-| [**mcp-policy-gateway**](https://github.com/airblackbox/mcp-policy-gateway) | Policy enforcement for Model Context Protocol |
+**Compliance:** Air-Compliance-Checker
 
 ---
 
-## Why Infrastructure-Level?
-
-The same reason you don't implement TLS differently in every microservice.
-
-Agent safety needs to be a **standardized layer**, not something each team builds ad hoc. AIR Blackbox operates in the OTel pipeline, as a reverse proxy, and as a policy engine — so it works across any framework, any model, any deployment.
-
----
-
-## Contributing
-
-We're looking for contributors interested in AI safety, observability, and governance. See our [Contributing Guide](https://github.com/airblackbox/air-platform/blob/main/CONTRIBUTING.md) to get started.
-
-**Current priorities:**
-- New framework connectors (Haystack, DSPy, Semantic Kernel)
-- Policy templates for common compliance scenarios
-- Documentation and integration examples
-
----
-
-<p align="center">
-  <strong>Apache 2.0</strong> · Built on <strong>OpenTelemetry</strong> · 21 repositories
-</p>
+Apache 2.0 · Built on OpenTelemetry · [PyPI](https://pypi.org/search/?q=air+blackbox)
