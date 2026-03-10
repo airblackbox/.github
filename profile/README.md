@@ -1,66 +1,82 @@
-# AIR Blackbox
+<p align="center">
+  <img src="https://raw.githubusercontent.com/airblackbox/gateway/main/logo.png" alt="AIR Blackbox" width="200">
+</p>
 
-**Open-source compliance infrastructure for AI agents — built for the EU AI Act.**
+<h1 align="center">AIR Blackbox</h1>
 
-The August 2, 2026 enforcement deadline for high-risk AI systems is approaching. AIR Blackbox provides the audit trails, security controls, and compliance tooling that enterprises need to deploy AI agents legally in the EU.
+<p align="center">
+  <strong>AI governance control plane — compliance, inventory, incident response, and audit for AI agents.</strong>
+</p>
 
-## What We Do
-
-Every AI agent decision gets recorded, every tool call gets gated, every prompt gets scanned — with tamper-evident HMAC-SHA256 audit chains that regulators can verify.
-
-## Quick Start
+<p align="center">
+  <a href="https://pypi.org/project/air-blackbox/"><img src="https://img.shields.io/pypi/v/air-blackbox" alt="PyPI"></a>
+  <a href="https://github.com/airblackbox/gateway/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://opentelemetry.io"><img src="https://img.shields.io/badge/OpenTelemetry-enabled-blueviolet?logo=opentelemetry" alt="OTel"></a>
+</p>
 
 ```bash
-pip install air-compliance        # Scan your project for EU AI Act gaps
-air-compliance scan ./my-project  # Get a compliance report instantly
+pip install air-blackbox
 ```
 
-## Framework Trust Layers
+## Four Commands
 
-Drop-in compliance for every major AI agent framework:
+```bash
+air-blackbox comply      # EU AI Act compliance from live traffic (20 checks, 90% automated)
+air-blackbox discover    # Shadow AI inventory + AI-BOM generation (CycloneDX 1.6)
+air-blackbox replay      # Incident reconstruction from HMAC audit chain
+air-blackbox export      # Signed evidence bundle for auditors and insurers
+```
 
-| Package | Framework | Install |
-|---------|-----------|---------|
-| [air-langchain-trust](https://github.com/airblackbox/air-langchain-trust) | LangChain / LangGraph | `pip install air-langchain-trust` |
-| [air-crewai-trust](https://github.com/airblackbox/trust-crewai) | CrewAI | `pip install air-crewai-trust` |
-| [air-openai-agents-trust](https://github.com/airblackbox/trust-openai-agents) | OpenAI Agents SDK | `pip install air-openai-agents-trust` |
-| [air-autogen-trust](https://github.com/airblackbox/trust-autogen) | AutoGen / AG2 | `pip install air-autogen-trust` |
-| [air-rag-trust](https://github.com/airblackbox/air-rag-trust) | RAG Knowledge Bases | `pip install air-rag-trust` |
-| [openclaw-air-trust](https://github.com/airblackbox/trust-openclaw) | TypeScript / Node.js | `npm install openclaw-air-trust` |
+## 30-Second Demo
 
-## Compliance & Scanning
+```bash
+pip install air-blackbox
+air-blackbox demo          # Zero config. No Docker. See compliance in action.
+```
 
-| Package | Purpose | Install |
-|---------|---------|---------|
-| [air-compliance](https://github.com/airblackbox/air-compliance-checker) | EU AI Act compliance scanner | `pip install air-compliance` |
-| [Gateway](https://github.com/airblackbox/gateway) | Flight recorder reverse proxy | `docker pull ghcr.io/airblackbox/gateway:main` |
-| [air-platform](https://github.com/airblackbox/air-platform) | Full stack (one command) | `docker compose up` |
+## How It Works
+
+AIR Blackbox is a reverse proxy + Python SDK. Route AI traffic through the gateway and every call is recorded, analyzed, and compliance-checked.
+
+```
+Your AI Agent → AIR Blackbox Gateway → LLM Provider
+                      │
+                      ├── HMAC-signed audit records
+                      ├── PII detection + injection scanning
+                      ├── AI-BOM (models, tools, providers)
+                      ├── EU AI Act compliance (Articles 9-15)
+                      └── Evidence export for auditors
+```
 
 ## EU AI Act Coverage
 
-Each trust layer provides controls mapped to specific articles:
+| Article | What It Covers | Detection |
+|---------|---------------|-----------|
+| **Art. 9** — Risk Management | Risk docs, active mitigations | HYBRID |
+| **Art. 10** — Data Governance | PII in prompts, data vault | AUTO + HYBRID |
+| **Art. 11** — Technical Docs | AI-BOM inventory, model cards | AUTO + HYBRID |
+| **Art. 12** — Record-Keeping | HMAC audit chain, traceability | **100% AUTO** |
+| **Art. 14** — Human Oversight | Kill switch, approval gates | AUTO + MANUAL |
+| **Art. 15** — Robustness | Injection detection, resilience | AUTO + MANUAL |
 
-- **Article 9** — Risk Management: ConsentGate classifies tool calls by risk level
-- **Article 10** — Data Governance: DataVault tokenizes PII, ProvenanceTracker hashes KB documents
-- **Article 11** — Technical Documentation: Structured audit logging with call graphs
-- **Article 12** — Record-Keeping: HMAC-SHA256 tamper-evident chains
-- **Article 14** — Human Oversight: Exception-based blocking, audit trail review
-- **Article 15** — Robustness: InjectionDetector, WriteGate, DriftDetector
+## Framework Support
 
-## Full Ecosystem (25 repos)
+```bash
+pip install "air-blackbox[langchain]"    # LangChain / LangGraph
+pip install "air-blackbox[openai]"       # OpenAI SDK
+pip install "air-blackbox[all]"          # Everything
+```
 
-**Core Runtime:** Gateway, Agent-Episode-Store, Agent-Policy-Engine, Air-Platform
+## Repositories
 
-**Instrumentation:** Python-SDK, air-langchain-trust, air-crewai-trust, air-autogen-trust, air-openai-agents-trust, openclaw-air-trust, air-rag-trust
+| Repo | What It Is |
+|------|-----------|
+| **[gateway](https://github.com/airblackbox/gateway)** | The unified platform — proxy + SDK + compliance + AI-BOM + replay + export |
+| **[VaultMind](https://github.com/airblackbox/VaultMind)** | Private AI OS — local-first RAG chatbot for law firms |
+| **[air-blackbox-mcp](https://github.com/airblackbox/air-blackbox-mcp)** | MCP server + EU AI Act compliance scanner for Claude Desktop |
 
-**Safety & Governance:** OTel-Collector-GenAI, OTel-Prompt-Vault, OTel-Semantic-Normalizer, Agent-Tool-Sandbox, Runtime-AIBOM-Emitter, AIBOM-Policy-Engine
-
-**Evaluation & Testing:** Eval-Harness, Trace-Regression-Harness, Agent-VCR
-
-**Security:** MCP-Security-Scanner, MCP-Policy-Gateway
-
-**Compliance:** Air-Compliance-Checker
+> **August 2, 2026** — EU AI Act high-risk enforcement deadline. Penalties up to €35M or 7% of global turnover.
 
 ---
 
-Apache 2.0 · Built on OpenTelemetry · [PyPI](https://pypi.org/search/?q=air+blackbox)
+Apache 2.0 · Built on OpenTelemetry · [airblackbox.ai](https://airblackbox.ai)
