@@ -122,6 +122,7 @@ cd air-platform && make up
 
 ### Links
 
+- 📧 [jason@airblackbox.ai](mailto:jason@airblackbox.ai)
 - 🌐 [airblackbox.ai](https://airblackbox.ai)
 - 📖 [Quickstart Guide](https://airblackbox.ai/quickstart.html)
 - 📖 [Integration Guides](https://airblackbox.ai/guides.html)
