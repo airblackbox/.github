@@ -5,7 +5,7 @@
 [![PyPI](https://img.shields.io/pypi/v/air-blackbox)](https://pypi.org/project/air-blackbox/)
 [![Downloads](https://img.shields.io/pypi/dm/air-blackbox?label=PyPI%20installs)](https://pypi.org/project/air-blackbox/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](https://github.com/airblackbox/airblackbox/blob/main/LICENSE)
-[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Art.%209%E2%80%9315%20Ready-green)](https://airblackbox.ai)
+[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Art.%209--15%20Ready-green)](https://airblackbox.ai)
 [![Post-Quantum](https://img.shields.io/badge/signing-ML--DSA--65%20(FIPS%20204)-purple)](https://csrc.nist.gov/pubs/fips/204/final)
 
 One proxy swap. Complete coverage. Runs locally.
@@ -15,23 +15,17 @@ pip install air-blackbox
 air-blackbox comply --scan . -v
 ```
 
-51+ compliance checks across EU AI Act Articles 9, 10, 11, 12, 13, 14, and 15. Maps to ISO 42001, NIST AI RMF, and Colorado SB 24-205. ML-DSA-65 post-quantum signed, HMAC-SHA256 tamper-evident audit chains. Self-verifying evidence bundles. Trust layers for 7 frameworks.
+51+ compliance checks across EU AI Act Articles 9, 10, 11, 12, 13, 14, and 15. Maps to ISO 42001, NIST AI RMF, and Colorado SB 24-205. ML-DSA-65 post-quantum signed, HMAC-SHA256 tamper-evident audit chains. Self-verifying evidence bundles. Trust layers for 7 frameworks, all in one package.
 
 ## The Ecosystem
 
 | Package | What it does |
 |---|---|
-| **[air-blackbox](https://github.com/airblackbox/airblackbox)** | EU AI Act scanner, 51+ checks, ML-DSA-65 signed evidence bundles |
-| [air-trust](https://github.com/airblackbox/air-trust) | Cryptographic primitives and trust layer wrappers for 7 frameworks |
+| **[air-blackbox](https://github.com/airblackbox/airblackbox)** | The core. EU AI Act scanner (51+ checks across Articles 9 to 15), trust-layer wrappers for 7 frameworks, HMAC-SHA256 audit chain, and ML-DSA-65 signed evidence bundles |
 | [air-gate](https://github.com/airblackbox/air-gate) | Pre-execution human-in-the-loop gating with Slack approvals |
-| [air-controls](https://github.com/airblackbox/air-controls) | Live agent visibility, timelines, cost tracking, kill switch |
-| [air-platform](https://github.com/airblackbox/air-platform) | Docker Compose full stack in one command |
-| [air-blackbox-mcp](https://github.com/airblackbox/air-blackbox-mcp) | MCP server for Claude Desktop, Cursor, Claude Code |
-| [air-controls-mcp](https://github.com/airblackbox/air-controls-mcp) | MCP server for runtime agent visibility |
-| [air-blackbox-plugin](https://github.com/airblackbox/air-blackbox-plugin) | Claude Code plugin (slash commands for the scanner) |
+| [air-platform](https://github.com/airblackbox/air-platform) | Docker Compose full stack: gateway, episode store, policy engine, and runtime observability |
+| [air-blackbox-mcp](https://github.com/airblackbox/air-blackbox-mcp) | MCP server for Claude Desktop, Cursor, and Claude Code |
 | [compliance-action](https://github.com/airblackbox/compliance-action) | GitHub Action for compliance checks on every PR |
-
-Plus 3 OTel processors ([otel-prompt-vault](https://github.com/airblackbox/otel-prompt-vault), [otel-collector-genai](https://github.com/airblackbox/otel-collector-genai), [otel-semantic-normalizer](https://github.com/airblackbox/otel-semantic-normalizer)) for redaction, cost metrics, and schema normalization.
 
 ## Why Post-Quantum
 
