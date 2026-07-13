@@ -23,7 +23,7 @@ air-blackbox comply --scan . -v
 |---|---|
 | **[air-blackbox](https://github.com/airblackbox/airblackbox)** | The core. EU AI Act scanner (51+ checks across Articles 9 to 15), trust-layer wrappers for 7 frameworks, HMAC-SHA256 audit chain, and ML-DSA-65 signed evidence bundles |
 | [air-gate](https://github.com/airblackbox/air-gate) | Pre-execution human-in-the-loop gating with Slack approvals |
-| [air-platform](https://github.com/airblackbox/air-platform) | Docker Compose full stack: gateway, episode store, policy engine, and runtime observability |
+| [air-platform](https://github.com/airblackbox/air-platform) | Docker Compose full stack: gateway, OTel collector, Jaeger, and MinIO prompt vault — one command, works from a fresh clone |
 | [air-blackbox-mcp](https://github.com/airblackbox/air-blackbox-mcp) | MCP server for Claude Desktop, Cursor, and Claude Code |
 | [compliance-action](https://github.com/airblackbox/compliance-action) | GitHub Action for compliance checks on every PR |
 
